@@ -12,11 +12,16 @@ module "dynamodb" {
   table_name = "Medical_report"
 }
 
+module "sns" {
+  source = "./modules/sns"
+}
+
 module "sns_trigger_lambda" {
   source        = "./modules/dynamodb_stream_lambda_function"
   function_name = "dynamodb_sns_function"
   role_arn      = module.iam_role_for_dynamodb_lambda.function_role_arn
   source_arn    = module.dynamodb.event_source_arn
+  depends_on    = [module.sns]
 }
 
 
