@@ -15,3 +15,13 @@ resource "aws_lambda_event_source_mapping" "dynamodb_trigger" {
 }
 
 
+# Permission for DynamoDB to invoke Lambda
+resource "aws_lambda_permission" "allow_dynamodb" {
+  statement_id  = "AllowExecutionFromDynamoDB"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.dynamodb_trigger_lambda.function_name
+  principal     = "dynamodb.amazonaws.com"
+  source_arn    = var.source_arn
+}
+
+
