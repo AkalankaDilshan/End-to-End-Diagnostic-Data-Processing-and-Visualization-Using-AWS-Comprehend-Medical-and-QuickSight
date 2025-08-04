@@ -10,7 +10,7 @@ resource "aws_lambda_function" "dynamodb_trigger_lambda" {
 
 resource "aws_lambda_event_source_mapping" "dynamodb_trigger" {
   event_source_arn  = var.source_arn
-  function_name     = aws_lambda_function.dynamodb_trigger_lambda.arn
+  function_name     = aws_lambda_function.dynamodb_trigger_lambda.function_name
   starting_position = "LATEST"
 }
 

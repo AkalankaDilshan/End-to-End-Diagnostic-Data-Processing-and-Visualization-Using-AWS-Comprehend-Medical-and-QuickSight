@@ -1,6 +1,7 @@
 variable "function_name" {
   description = "lambda function name"
   type        = string
+  # default     = "dynamodb_stream_processor"
 }
 
 variable "role_arn" {
