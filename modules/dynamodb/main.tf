@@ -2,6 +2,11 @@ resource "aws_dynamodb_table" "medical_reports" {
   name         = var.table_name
   billing_mode = "PAY_PER_REQUEST"
 
+
+  # Enable DynamoDB Stream
+  stream_enabled   = true
+  stream_view_type = "NEW_IMAGE" # Can be NEW_IMAGE, OLD_IMAGE,
+
   hash_key = "Report_ID"
   attribute {
     name = "Report_ID"
