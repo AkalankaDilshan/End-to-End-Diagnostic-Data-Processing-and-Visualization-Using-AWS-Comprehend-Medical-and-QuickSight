@@ -13,3 +13,5 @@ resource "aws_lambda_event_source_mapping" "dynamodb_trigger" {
   function_name     = aws_lambda_function.dynamodb_trigger_lambda.arn
   starting_position = "LATEST"
 }
+
+
