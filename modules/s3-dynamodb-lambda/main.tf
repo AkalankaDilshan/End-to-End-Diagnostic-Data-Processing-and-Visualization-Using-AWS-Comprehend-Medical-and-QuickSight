@@ -1,8 +1,8 @@
 #Add pandas layer
 data "aws_lambda_layer_version" "pandas" {
-  layer_name = "AWSSDKPandas-Python311" # For Python 3.11
+  layer_name = "AWSSDKPandas-Python311"
+  version    = 22
 }
-
 resource "aws_lambda_function" "file_processor_function" {
   function_name    = var.function_name
   role             = var.role_arn
