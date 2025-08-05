@@ -9,8 +9,12 @@ variable "role_arn" {
   type        = string
 }
 
-variable "source_arn" {
-  description = "trigger source arn"
+variable "dynamodn_stream_arn" {
+  description = "aws_dynamodb_table.items_table.stream_arn"
   type        = string
 }
 
+variable "sns_arn" {
+  description = "sns topic arn"
+  type        = string
+}
