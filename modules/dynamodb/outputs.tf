@@ -1,4 +1,4 @@
-output "event_source_arn" {
+output "dynamodb_stream_arn" {
   value = aws_dynamodb_table.medical_reports.stream_arn
 }
 
