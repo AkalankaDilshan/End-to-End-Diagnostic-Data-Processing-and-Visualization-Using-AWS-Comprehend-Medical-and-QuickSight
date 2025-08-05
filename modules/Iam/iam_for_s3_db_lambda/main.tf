@@ -32,22 +32,21 @@ data "aws_iam_policy_document" "lambda_policy_doc" {
 }
 
 
-resource "aws_iam_role" "lambda_role" {
-  name = var.role_name
-  assume_role_policy = jsonencode({
-    version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "lambda.amazonaws.com"
-        }
-      }
-    ]
-  })
+data "aws_iam_policy_document" "assume_role_policy" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
 
-  # Tag ad krnna methna
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "lambda_role" {
+  name               = var.role_name
+  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 }
 
 resource "aws_iam_policy" "lambda_policy" {
