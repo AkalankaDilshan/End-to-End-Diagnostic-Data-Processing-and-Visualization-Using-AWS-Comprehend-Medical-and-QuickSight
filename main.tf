@@ -2,12 +2,6 @@ provider "aws" {
   region = "eu-north-1"
 }
 
-
-# module "iam_role_for_dynamodb_lambda" {
-#   source    = "./modules/Iam/iam_for_dynamodb_trigger"
-#   role_name = "dynamodb_lambda_iam_role"
-# }
-
 module "s3_bucket" {
   source        = "./modules/s3-bucket"
   aws_region    = "eu-north-1"
@@ -32,17 +26,20 @@ module "lambda_function_1" {
   role_arn            = module.lambda_iam_role_s3_to_dynamodb.lambda_role_arn
 }
 
+module "sns" {
+  source = "./modules/sns"
+}
 
-# module "sns" {
-#   source = "./modules/sns"
-# }
-
-# module "sns_trigger_lambda" {
-#   source        = "./modules/dynamodb_stream_lambda_function"
-#   function_name = "dynamodb_sns_function"
-#   role_arn      = module.iam_role_for_dynamodb_lambda.function_role_arn
-#   source_arn    = module.dynamodb.event_source_arn
-#   depends_on    = [module.sns]
-# }
+module "iam_role_for_dynamodb_lambda" {
+  source    = "./modules/Iam/iam_for_dynamodb_trigger"
+  role_name = "dynamodb_lambda_iam_role"
+}
+module "sns_trigger_lambda" {
+  source        = "./modules/dynamodb_stream_lambda_function"
+  function_name = "dynamodb_sns_function"
+  role_arn      = module.iam_role_for_dynamodb_lambda.function_role_arn
+  source_arn    = module.dynamodb.event_source_arn
+  depends_on    = [module.sns, module.iam_role_for_dynamodb_lambda]
+}
 
 
