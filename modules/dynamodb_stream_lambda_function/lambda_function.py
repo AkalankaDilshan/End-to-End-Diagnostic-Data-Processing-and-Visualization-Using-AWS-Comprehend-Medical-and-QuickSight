@@ -22,7 +22,7 @@ def lambda_handler(event, context):
                 
                 # send sns email
                 response = sns_client.publish(
-                    TopicArn=os.environ['SNS_TOPIC_ARN']
+                    TopicArn=os.environ['SNS_TOPIC_ARN'],
                     Message=message,
                     Subject='New Item Added to DynamoDB'
                 )
