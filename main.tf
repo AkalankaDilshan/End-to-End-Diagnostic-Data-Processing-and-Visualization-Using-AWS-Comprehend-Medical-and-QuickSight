@@ -35,11 +35,12 @@ module "iam_role_for_dynamodb_lambda" {
   role_name = "dynamodb_lambda_iam_role"
 }
 module "sns_trigger_lambda" {
-  source        = "./modules/dynamodb_stream_lambda_function"
-  function_name = "dynamodb_sns_function"
-  role_arn      = module.iam_role_for_dynamodb_lambda.function_role_arn
-  source_arn    = module.dynamodb.event_source_arn
-  depends_on    = [module.sns, module.iam_role_for_dynamodb_lambda]
+  source              = "./modules/dynamodb_stream_lambda_function"
+  function_name       = "dynamodb_sns_function"
+  role_arn            = module.iam_role_for_dynamodb_lambda.function_role_arn
+  dynamodn_stream_arn = module.dynamodb.dynamodb_stream_arn
+  sns_arn             = module.sns.sns_topic_arn
+  depends_on          = [module.sns, module.iam_role_for_dynamodb_lambda]
 }
 
 
