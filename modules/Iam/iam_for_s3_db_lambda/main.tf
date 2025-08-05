@@ -34,13 +34,13 @@ data "aws_iam_policy_document" "lambda_policy_doc" {
 
 resource "aws_iam_role" "lambda_role" {
   name = var.role_name
-  assume_role_policy = jsondencode({
+  assume_role_policy = jsonencode({
     version = "2012-10-17"
     Statement = [
       {
         Action = "sts:AssumeRole"
         Effect = "Allow"
-        Principals = {
+        Principal = {
           Service = "lambda.amazonaws.com"
         }
       }
