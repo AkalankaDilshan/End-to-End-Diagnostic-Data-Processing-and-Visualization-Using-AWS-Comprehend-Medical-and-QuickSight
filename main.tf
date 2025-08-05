@@ -31,10 +31,6 @@ module "lambda_function_1" {
   role_arn            = module.lambda_iam_role_s3_to_dynamodb.lambda_role_arn
 }
 
-module "dynamodb" {
-  source     = "./modules/dynamodb"
-  table_name = "Medical_report"
-}
 
 # module "sns" {
 #   source = "./modules/sns"
