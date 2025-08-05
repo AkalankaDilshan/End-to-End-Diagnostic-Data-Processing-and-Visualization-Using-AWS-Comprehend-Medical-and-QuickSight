@@ -19,7 +19,7 @@ resource "aws_lambda_function" "file_processor_function" {
 resource "aws_lambda_permission" "allow_bucket" {
   statement_id  = "AllowExecutionFromS3Bucket"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.file_processor.arn
+  function_name = aws_lambda_function.file_processor_function.arn
   principal     = "s3.amazonaws.com"
   #source_arn    = aws_s3_bucket.upload_bucket.arn
   source_arn = var.s3_bucket_arn
