@@ -51,6 +51,9 @@ def lambda_handler(event, context):
                'body': json.dump(f"Error processing file: {str(e)}")
           }
 
+def process_medical_reports(df, source_file):
+    table = dynamodb.Table(DYNAMODB_TABLE_NAME)
+
 def process_dataframe(df, source_file):
      
      table = dynamodb.Table(DYNAMODB_TABLE_NAME)

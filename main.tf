@@ -15,7 +15,7 @@ module "s3_bucket" {
   environment   = "development"
 }
 module "lambda_iam_role_s3_to_dynamodb" {
-  source    = "./modules/iam/lambda_s3_dynamodb"
+  source    = "./modules/Iam/iam_for_s3_db_lambda"
   role_name = "s3-to-dynamodb-lambda-role"
 }
 
