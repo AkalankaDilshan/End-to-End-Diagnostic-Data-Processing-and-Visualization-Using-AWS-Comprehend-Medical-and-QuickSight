@@ -28,6 +28,7 @@ module "lambda_function_1" {
   function_name       = "lambda_s3_to_dynamodb"
   dymamodb_table_name = module.dynamodb.dynamodb_table_name
   s3_bucket_arn       = module.s3_bucket.s3_bucket_arn
+  s3_bucket_id        = module.s3_bucket.bucket_id
   role_arn            = module.lambda_iam_role_s3_to_dynamodb.lambda_role_arn
 }
 

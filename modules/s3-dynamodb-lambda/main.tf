@@ -13,6 +13,23 @@ resource "aws_lambda_function" "file_processor_function" {
       ALLOWED_EXTENSIONS  = join(",", var.allowed_file_extensions)
     }
   }
+
+  timeout     = 60
+  memory_size = 256
+}
+
+# S3 Bucket Notification
+resource "aws_s3_bucket_notification" "bucket_notification" {
+  bucket = var.s3_bucket_id
+
+  lambda_function {
+    lambda_function_arn = aws_lambda_function.file_processor_function.arn
+    events              = ["s3:ObjectCreated:*"]
+    #     filter_prefix       = "uploads/"  # Optional: Only watch a specific prefix
+    #     filter_suffix       = ".xlsx"     # Optional: Only watch for .xlsx files
+  }
+
+  #   depends_on = [aws_lambda_permission.allow_bucket]
 }
 
 # Permission for S3 to invoke Lambda

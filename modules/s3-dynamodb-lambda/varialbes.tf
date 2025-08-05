@@ -24,3 +24,8 @@ variable "allowed_file_extensions" {
   type        = list(string)
   default     = ["csv", "xlsx", "xls"]
 }
+
+variable "s3_bucket_id" {
+  description = "input bucket id"
+  type        = string
+}
