@@ -47,4 +47,15 @@ module "sns_trigger_lambda" {
   depends_on          = [module.sns, module.iam_role_for_dynamodb_lambda]
 }
 
+module "apigateway" {
+  source                = "./modules/api-gateway"
+  cognito_user_pool_arn = "arn:aws:cognito-idp:eu-north-1:017117988836:userpool/eu-north-1_ExjMiZeM0"
+  lambda_invoke_arn     = module.api_s3_lambda.lambda_function_arn
+}
+module "api_s3_lambda" {
+  source          = "./modules/api-s3-lambda"
+  role_arn        = module.iam_role_for_api_s3_lambda.lambda_role_arn
+  s3_bucket_id    = module.s3_bucket.bucket_id
+  api_gateway_arn = module.apigateway.api_gateway_arn
+}
 
