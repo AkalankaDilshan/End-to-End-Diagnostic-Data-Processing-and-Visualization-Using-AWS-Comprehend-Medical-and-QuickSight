@@ -13,6 +13,15 @@ module "lambda_iam_role_s3_to_dynamodb" {
   role_name = "s3-to-dynamodb-lambda-role"
 }
 
+module "iam_role_for_dynamodb_lambda" {
+  source    = "./modules/Iam/iam_for_dynamodb_trigger"
+  role_name = "dynamodb_lambda_iam_role"
+}
+
+module "iam_role_for_api_s3_lambda" {
+  source    = "./modules/Iam/iam_for_api_s3_lambda"
+  role_name = "api_lambda_iam_role"
+}
 module "dynamodb" {
   source     = "./modules/dynamodb"
   table_name = "Medical_report"
@@ -28,11 +37,6 @@ module "lambda_function_1" {
 
 module "sns" {
   source = "./modules/sns"
-}
-
-module "iam_role_for_dynamodb_lambda" {
-  source    = "./modules/Iam/iam_for_dynamodb_trigger"
-  role_name = "dynamodb_lambda_iam_role"
 }
 module "sns_trigger_lambda" {
   source              = "./modules/dynamodb_stream_lambda_function"
