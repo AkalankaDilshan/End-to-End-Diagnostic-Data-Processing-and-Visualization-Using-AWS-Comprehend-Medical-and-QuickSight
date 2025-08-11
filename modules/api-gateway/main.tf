@@ -26,6 +26,14 @@ resource "aws_api_gateway_integration" "lambda_integration" {
   uri                     = var.lambda_invoke_arn
 }
 
+resource "aws_lambda_permission" "apigw_lambda" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = var.lambda_function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.file_upload_api.execution_arn}/*/POST/upload"
+}
+
 resource "aws_api_gateway_deployment" "deployment" {
   depends_on  = [aws_api_gateway_integration.lambda_integration]
   rest_api_id = aws_api_gateway_rest_api.file_upload_api.id

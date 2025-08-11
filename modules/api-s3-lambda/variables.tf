@@ -15,7 +15,7 @@ variable "s3_bucket_id" {
   type        = string
 }
 
-variable "api_gateway_arn" {
-  description = "aws_api_gateway_rest_api.file_upload_api.execution_arn"
-  type        = string
-}
+# variable "api_gateway_arn" {
+#   description = "aws_api_gateway_rest_api.file_upload_api.execution_arn"
+#   type        = string
+# }
