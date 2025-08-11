@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "lambda_policy_documet" {
   }
 }
 
-data "aws_iam_police_document" "assume_role_policy" {
+data "aws_iam_policy_document" "assume_role_policy" {
   statement {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
