@@ -22,7 +22,7 @@ resource "aws_api_gateway_integration" "lambda_integration" {
   resource_id             = aws_api_gateway_resource.upload.id
   http_method             = aws_api_gateway_method.upload_post.http_method
   integration_http_method = "POST"
-  type                    = "AWS_PROXY"
+  type                    = "AWS"
   uri                     = var.lambda_invoke_arn
 }
 
